@@ -38,6 +38,14 @@ Los saltos (12 capítulos en `4-sincronia`, 4 momentos en `5-modulo`) usan `Pand
 
 **Comprobado el 2026-11-14 contra el perfil cerrado**, porque no era obvio que funcionara: `setCurrentTime(140)` movió el video de 28 s a 141,9 s y llegaron `panda_seeking` y `panda_seeked`. Importa verificarlo si alguna vez se cambia el perfil: uno restrictivo **puede hacer que el reproductor ignore las órdenes** (ya pasó con `disablePause` en las landings de miguellemus.co, 28 oct 2026). Si un día los capítulos dejan de saltar, mirar primero el perfil del player en Panda, no el JavaScript.
 
+## En producción (2026-11-14)
+Las dos landings están desplegadas en Vercel (equipo `atm-co-projects`, proyecto `selvani-fraccion-pionera`), junto a las tres anteriores:
+- Sincronía: https://selvani-fraccion-pionera.vercel.app/sincronia/
+- El módulo: https://selvani-fraccion-pionera.vercel.app/modulo/
+- Portada con las cinco: https://selvani-fraccion-pionera.vercel.app
+
+La carpeta de despliegue completa (con las landings 1–3 bajadas del despliegue anterior y el enlace al proyecto) vive en `_vercel/`; ahí está el procedimiento para volver a desplegar. Siguen pendientes antes de pautar: URL de Calendly (`CAL`), política de datos (`POL`), backend del formulario, og:image absoluta, pixel + CAPI.
+
 ## Auditoría de cumplimiento (2026-11-13)
 Pasó por `pauta-highticket:auditor-cumplimiento`. Se aplicaron sus 4 bloqueantes y 11 menores: se quitó "lo peor que puede pasar…" y "el riesgo está resuelto por diseño"; el "100 %" quedó solo en el mecanismo y en una FAQ, siempre con la condición delante; se agregó el aviso de tratamiento de datos bajo el formulario; "Liquidez real" pasó a "Transferible" sin "cuando decidas"; restaurante y piscina condicionados a las áreas comunes; la cifra pasó de "98 · 62" a "62 disponibles" (70 para terceros); disclaimer repetido dentro de "Lo que incluye" y más grande en el pie; sin "seguridad/seguro" como gancho; sin FOMO.
 
@@ -48,6 +56,17 @@ Pasó por `pauta-highticket:auditor-cumplimiento`. Se aplicaron sus 4 bloqueante
 4. `og:image` es ruta relativa; al desplegar, cambiar a URL absoluta del dominio final.
 5. Pixel de Meta + CAPI.
 6. Confirmar 70/62 fracciones y que el VSL v13 es la versión aprobada por Jorge. El VSL sí dice "usas el restaurante, nadas en la piscina" sin condicionar a las áreas comunes; revisar con Jorge.
+
+## Repo en GitHub (2026-11-14)
+`mlemus27/selvani-landings`, **privado**. Contiene solo esta carpeta, con su historia. El repo de verdad sigue siendo el de la Mac (su raíz es la carpeta de usuario y mezcla Selvaní con Oficina Hermes, que incluye la IP del VPS y el inventario de puertos: eso NO sube a ningún servidor).
+
+Para actualizar GitHub después de comitear aquí, se recorta esta carpeta y se empuja ese corte:
+```bash
+cd ~ && git branch -D selvani-landings-solo 2>/dev/null
+git -c core.quotePath=false subtree split -P "Documents/Claude Code/02 ATM/Clientes/Selvaní/Selva : ADN de Marca/landings" -b selvani-landings-solo
+git push selvani-landings selvani-landings-solo:main
+```
+`core.quotePath=false` es obligatorio: sin eso `subtree` compara la ruta escapada (`Selvan303255`) con la literal y se cae con *assertion failed* por la «í» de Selvaní.
 
 ## Probar en local
 ```bash
