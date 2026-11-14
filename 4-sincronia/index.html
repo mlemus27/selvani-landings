@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selvaní · Dueño sin cientos de millones</title>
+<meta name="description" content="En Caldas, frente al Embalse Amaní, hay un hotel donde puedes ser dueño desde una fracción. Jorge, uno de los desarrolladores, te lo cuenta en seis minutos.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Selvaní · Dueño sin cientos de millones">
+<meta property="og:description" content="Un hotel de trece cabañas frente al Embalse Amaní, vendido por fracciones. Jorge te lo cuenta en seis minutos.">
+<meta property="og:image" content="../_media/lote-embalse-900.jpg">
+<link rel="icon" href="../_media/isotipo-crudo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@200;300;400;500&family=Zalando+Sans+Expanded:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#0f2622;
+  --profundo:#1c403a;
+  --profundo-2:#163631;
+  --crudo:#fffef2;
+  --crudo-80:rgba(255,254,242,.8);
+  --crudo-55:rgba(255,254,242,.55);
+  --crudo-30:rgba(255,254,242,.3);
+  --crudo-12:rgba(255,254,242,.12);
+  --salvia:#66776e;
+  --salvia-200:#c5cbc8;
+  --salvia-100:#e0e4e2;
+  --carbon:#58595b;
+  --amani:#5fa79c;
+  --amani-soft:rgba(95,167,156,.35);
+  --display:'Zalando Sans',Jost,'Helvetica Neue',Arial,sans-serif;
+  --label:'Zalando Sans Expanded','Zalando Sans',Jost,sans-serif;
+  --gutter:clamp(16px,4vw,56px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
+body{
+  background:var(--noche);
+  color:var(--crudo);
+  font-family:var(--display);
+  font-weight:400;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--amani);outline-offset:4px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- labels & type ---------- */
+.label{
+  font-family:var(--label);
+  font-weight:500;
+  font-size:.7rem;
+  letter-spacing:.09em;
+  color:var(--amani);
+}
+h1,h2,h3{font-weight:200;letter-spacing:-.015em;line-height:1.08}
+h1{font-size:clamp(2.1rem,4.3vw,4.1rem)}
+h2{font-size:clamp(1.7rem,3vw,2.6rem)}
+h3{font-size:clamp(1.2rem,1.6vw,1.45rem);font-weight:300;line-height:1.25}
+p.lead{font-size:clamp(1.05rem,1.35vw,1.25rem);font-weight:300;color:var(--salvia-200);line-height:1.5}
+em{font-style:normal;color:var(--amani)}
+
+/* ---------- pill button ---------- */
+.pill{
+  display:inline-flex;align-items:center;gap:.6em;
+  padding:.85em 1.5em;border-radius:999px;
+  background:var(--crudo);color:var(--noche);
+  font-weight:500;font-size:.95rem;letter-spacing:.005em;
+  text-decoration:none;white-space:nowrap;
+  transition:transform .25s var(--ease),background .25s var(--ease);
+}
+.pill:hover{background:#fff;transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:var(--crudo);box-shadow:inset 0 0 0 1px var(--crudo-30)}
+.pill.ghost:hover{box-shadow:inset 0 0 0 1px var(--crudo-80)}
+.pill svg{width:1em;height:1em}
+
+/* ---------- header ---------- */
+.top{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--gutter);
+  background:linear-gradient(var(--noche) 70%,rgba(15,38,34,0));
+}
+.top img{height:34px;width:auto}
+.top .pill{padding:.6em 1.15em;font-size:.85rem}
+.trust{
+  display:flex;flex-wrap:wrap;gap:.4em 1.4em;
+  padding:0 var(--gutter) 10px;
+  font-family:var(--label);font-size:.66rem;letter-spacing:.08em;color:var(--crudo-55);
+}
+.trust span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--amani);margin-right:.7em;vertical-align:middle}
+
+/* ---------- stage ---------- */
+.stage{
+  display:grid;
+  grid-template-columns:minmax(300px,44%) minmax(0,1fr);
+  gap:clamp(24px,5vw,80px);
+  padding:clamp(8px,2vw,24px) var(--gutter) 0;
+  align-items:start;
+}
+.player{
+  position:sticky;top:64px;
+  height:calc(100svh - 72px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+}
+.frame{
+  position:relative;
+  aspect-ratio:4/5;
+  height:min(100%,calc(100svh - 120px));
+  max-width:100%;
+  border-radius:18px;overflow:hidden;
+  background:var(--profundo);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7),0 0 0 1px var(--crudo-12);
+}
+.frame video{width:100%;height:100%;object-fit:cover}
+.frame .main{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
+.frame.playing .main{opacity:1}
+.frame.playing .teaser,.frame.playing .cover{opacity:0;pointer-events:none}
+.cover{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:26px;gap:14px;
+  background:linear-gradient(180deg,rgba(15,38,34,0) 40%,rgba(15,38,34,.85));
+  transition:opacity .5s var(--ease);
+}
+.cover .who{font-weight:300;font-size:1.05rem;line-height:1.3;color:var(--crudo)}
+.cover .who small{display:block;font-family:var(--label);font-size:.66rem;letter-spacing:.08em;color:var(--salvia-200);margin-top:4px}
+.play{
+  display:inline-flex;align-items:center;gap:.7em;
+  padding:.75em 1.3em .75em .75em;border-radius:999px;
+  background:var(--crudo);color:var(--noche);font-weight:500;font-size:.95rem;
+  transition:transform .25s var(--ease);
+}
+.play:hover{transform:translateY(-1px)}
+.play .ic{width:36px;height:36px;border-radius:50%;background:var(--noche);display:grid;place-items:center}
+.play .ic svg{width:14px;height:14px;fill:var(--crudo);margin-left:2px}
+.time{
+  font-family:var(--label);font-size:.7rem;letter-spacing:.08em;color:var(--crudo-55);
+  display:flex;gap:1.2em;align-items:center;
+}
+.time b{font-weight:500;color:var(--crudo)}
+.time .now{color:var(--amani)}
+
+/* ---------- script column ---------- */
+.script{padding-bottom:40px;min-width:0}
+.intro{padding:clamp(24px,6vh,72px) 0 clamp(28px,5vh,56px);max-width:620px}
+.intro h1{margin:.4em 0 .6em}
+.intro .label{display:block;margin-bottom:.2em}
+.intro .cue{margin-top:1.6em;display:flex;align-items:center;gap:12px;color:var(--salvia-200);font-size:.95rem}
+.intro .cue::before{content:"";width:34px;height:1px;background:var(--amani)}
+
+.chapters{position:relative;padding-left:34px;max-width:640px}
+.thread{position:absolute;left:8px;top:14px;bottom:14px;width:1px;background:var(--crudo-12)}
+.thread i{position:absolute;left:0;top:0;width:100%;height:0;background:var(--amani);box-shadow:0 0 12px var(--amani-soft)}
+.ch{
+  position:relative;display:block;width:100%;text-align:left;
+  padding:18px 0 18px 10px;border-radius:12px;
+  transition:background .3s var(--ease),transform .4s var(--ease),opacity .4s var(--ease);
+  opacity:.55;
+}
+.ch::before{
+  content:"";position:absolute;left:-30px;top:27px;width:9px;height:9px;border-radius:50%;
+  background:var(--noche);box-shadow:inset 0 0 0 1px var(--crudo-30);transition:all .3s var(--ease);
+}
+.ch:hover{opacity:.85}
+.ch .t{display:flex;align-items:baseline;gap:14px}
+.ch .t .label{color:var(--crudo-55);min-width:3.2em;transition:color .3s}
+.ch h3{color:var(--crudo)}
+.ch p{margin:.45em 0 0 calc(3.2em + 14px);color:var(--salvia-200);font-size:.98rem;max-width:52ch}
+.ch.is-on{opacity:1;background:linear-gradient(90deg,rgba(255,254,242,.05),rgba(255,254,242,0))}
+.ch.is-on::before{background:var(--amani);box-shadow:0 0 0 4px var(--amani-soft)}
+.ch.is-on .t .label{color:var(--amani)}
+.ch.is-past{opacity:.75}
+.ch.is-past::before{background:var(--amani);box-shadow:none}
+.ch .seek{position:absolute;right:8px;top:22px;font-family:var(--label);font-size:.62rem;letter-spacing:.08em;color:var(--amani);opacity:0;transition:opacity .25s}
+.ch:hover .seek,.ch:focus-visible .seek{opacity:1}
+
+/* ---------- form ---------- */
+.form-wrap{margin:40px 0 0;padding-left:0;max-width:640px}
+.card{
+  background:var(--crudo);color:var(--noche);
+  border-radius:22px;padding:clamp(24px,4vw,44px);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.8);
+}
+.card h2{color:var(--profundo);margin:.2em 0 .5em}
+.card .lead{color:var(--carbon)}
+.card .label{color:var(--salvia)}
+form{display:grid;gap:18px;margin-top:28px}
+.f{display:grid;gap:6px}
+.f label{font-size:.9rem;color:var(--carbon);font-weight:400}
+.f input,.f select{
+  font:inherit;width:100%;padding:13px 14px;border-radius:12px;
+  border:1px solid rgba(88,89,91,.35);background:#fff;color:var(--noche);
+  transition:border-color .2s,box-shadow .2s;
+}
+.f input:focus,.f select:focus{outline:none;border-color:var(--profundo);box-shadow:0 0 0 3px rgba(28,64,58,.14)}
+.f .hint{font-size:.8rem;color:var(--carbon);opacity:.8}
+.f.err input{border-color:#a3473b}
+.f .msg{display:none;font-size:.82rem;color:#a3473b}
+.f.err .msg{display:block}
+.submit{
+  margin-top:6px;width:100%;justify-content:center;
+  background:var(--profundo);color:var(--crudo);padding:1.05em 1.5em;font-size:1rem;
+}
+.submit:hover{background:#245249}
+.fine{font-size:.82rem;color:var(--carbon);text-align:center;margin-top:4px}
+.fine.datos{font-size:.76rem;opacity:.85}
+.fine.datos a{color:var(--profundo)}
+.thanks{display:none;text-align:left}
+.card.sent form,.card.sent .lead,.card.sent .fine{display:none}
+.card.sent .thanks{display:block}
+.thanks h2{margin-bottom:.3em}
+.thanks p{color:var(--carbon);margin-bottom:1.2em}
+.thanks .pill{background:var(--profundo);color:var(--crudo)}
+.seal{
+  display:flex;flex-wrap:wrap;gap:.5em 1.6em;margin-top:22px;padding-top:18px;
+  border-top:1px solid rgba(88,89,91,.2);
+  font-family:var(--label);font-size:.64rem;letter-spacing:.08em;color:var(--salvia);
+}
+
+/* ---------- below ---------- */
+.below{padding:clamp(60px,10vh,120px) var(--gutter) 40px;border-top:1px solid var(--crudo-12);margin-top:30px}
+.below .head{max-width:760px;margin-bottom:clamp(28px,5vh,56px)}
+.below .head h2{margin:.3em 0 .5em}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,4vw,56px)}
+.block h3{margin-bottom:14px;color:var(--crudo)}
+.block .label{display:block;margin-bottom:10px}
+.stack{list-style:none}
+.stack li{padding:12px 0;border-top:1px solid var(--crudo-12);font-size:.98rem;color:var(--salvia-200)}
+.stack li b{font-weight:400;color:var(--crudo);display:block}
+.stack li:last-child{border-bottom:1px solid var(--crudo-12)}
+.faq details{border-top:1px solid var(--crudo-12)}
+.faq details:last-child{border-bottom:1px solid var(--crudo-12)}
+.faq summary{list-style:none;cursor:pointer;padding:14px 32px 14px 0;position:relative;font-weight:300;font-size:1.05rem;color:var(--crudo)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:12px;font-weight:200;font-size:1.4rem;color:var(--amani);transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 16px;color:var(--salvia-200);font-size:.97rem;max-width:58ch}
+.steps{list-style:none;counter-reset:s}
+.steps li{position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--crudo-12);color:var(--salvia-200);font-size:.98rem;counter-increment:s}
+.steps li:last-child{border-bottom:1px solid var(--crudo-12)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:13px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--label);font-size:.62rem;color:var(--amani);box-shadow:inset 0 0 0 1px var(--amani-soft)}
+.steps li b{font-weight:400;color:var(--crudo)}
+.cta-end{margin-top:clamp(48px,8vh,96px);text-align:center}
+.cta-end h2{margin-bottom:.7em}
+
+/* ---------- footer ---------- */
+footer{padding:40px var(--gutter) 48px;border-top:1px solid var(--crudo-12);color:var(--crudo-55);font-size:.85rem}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px 40px;align-items:flex-end}
+footer img{height:26px;width:auto;opacity:.9;margin-bottom:12px}
+footer p{max-width:62ch}
+footer .legal{margin-top:22px;padding-top:18px;border-top:1px solid var(--crudo-12);font-size:.92rem;line-height:1.55;color:var(--salvia-200)}
+footer a{text-decoration:none;color:var(--salvia-200)}
+footer a:hover{color:var(--crudo)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- mobile ---------- */
+@media (max-width:860px){
+  .stage{display:flex;flex-direction:column;gap:0;padding-top:0}
+  .script{display:contents}
+  .intro{order:0;padding:14px 0 18px;max-width:none}
+  .intro h1{font-size:clamp(1.9rem,8.2vw,2.6rem)}
+  .intro .cue{display:none}
+  .player{
+    order:1;position:relative;top:auto;z-index:20;height:auto;
+    padding:8px 0 10px;margin:0 calc(var(--gutter) * -1);
+    background:linear-gradient(var(--noche) 88%,rgba(15,38,34,0));
+    gap:8px;
+  }
+  .player.is-playing{position:sticky;top:0}
+  .frame{height:min(60svh,520px);border-radius:14px;transition:height .45s var(--ease)}
+  .player.is-playing .frame{height:min(38svh,340px)}
+  .player.mini .frame{height:min(20svh,180px)}
+  .player.mini .time{display:none}
+  .cover{padding:16px;gap:10px}
+  .cover .who{font-size:.9rem}
+  .play{font-size:.85rem}
+  .chapters{order:2;padding-left:24px;max-width:none}
+  .chapters::before{content:"Sigue el guion mientras ves el video, o toca un capítulo para saltar ahí.";display:block;margin:14px 0 6px;font-size:.9rem;color:var(--salvia-200)}
+  .form-wrap{order:3;max-width:none}
+  .top{position:static;background:var(--noche)}
+  .ch{padding:14px 0 14px 6px}
+  .ch::before{left:-22px;top:23px}
+  .ch h3{font-size:1.12rem}
+  .ch p{margin-left:0;margin-top:.45em;font-size:.93rem}
+  .ch .seek{display:none}
+  .below{padding-top:56px}
+}
+@media (max-width:480px){
+  body{font-size:16px}
+  .player.is-playing .frame{height:min(34svh,300px)}
+  .player.mini .frame{height:min(18svh,160px)}
+  .trust{display:none}
+  .card{padding:22px 18px;border-radius:18px}
+  .cols{gap:36px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .ch,.frame .main,.cover{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="#" aria-label="Selvaní"><img src="../_media/lockup-crudo.png" alt="Selvaní hotel"></a>
+  <a class="pill" href="#formulario">Agendar mi llamada</a>
+</header>
+<div class="trust" aria-label="Respaldo">
+  <span>Fiducia de destinación específica</span>
+  <span>Punto de equilibrio por módulo</span>
+  <span>62 fracciones disponibles</span>
+</div>
+
+<main class="stage">
+
+  <!-- ===== VIDEO ===== -->
+  <section class="player" aria-label="Video">
+    <div class="frame" id="frame">
+      <video class="teaser" muted autoplay loop playsinline preload="auto" poster="../_media/poster-agua.jpg" aria-hidden="true">
+        <source src="../_media/teaser-agua.mp4" type="video/mp4">
+      </video>
+      <video class="main" id="vsl" playsinline preload="metadata" poster="../_media/vsl-poster-jorge.jpg">
+        <source src="../_media/vsl-v13-web-640.mp4" type="video/mp4">
+        Tu navegador no reproduce este video.
+      </video>
+      <div class="cover">
+        <div class="who">Jorge, uno de los desarrolladores de Selvaní<small>Seis minutos. Sin vendedor al otro lado.</small></div>
+        <button class="play" id="play" type="button"><span class="ic"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M0 0l12 7-12 7z"/></svg></span>Ver el video · 5:57</button>
+      </div>
+    </div>
+    <div class="time" aria-live="off"><span><b id="cur">0:00</b> / 5:57</span><span class="now" id="now">Dale play</span></div>
+  </section>
+
+  <!-- ===== SCRIPT ===== -->
+  <div class="script">
+    <section class="intro">
+      <span class="label">Oriente de Caldas · Embalse Amaní</span>
+      <h1>En Caldas, frente a un embalse de agua turquesa, hay un hotel donde puedes ser dueño sin pagar cientos de millones.</h1>
+      <p class="lead">Copropietario real de una parte del hotel. Ingresos mensuales por operación turística mientras tú no estás. Noches para ir cuando quieras. Y una fracción que puedes vender, ceder o heredar.</p>
+      <p class="cue">Sigue el guion mientras ves el video, o toca un capítulo para saltar ahí.</p>
+    </section>
+
+    <nav class="chapters" id="chapters" aria-label="Capítulos del video">
+      <div class="thread" aria-hidden="true"><i id="fill"></i></div>
+
+      <button class="ch" type="button" data-t="0" data-end="20.9">
+        <span class="t"><span class="label">0:00</span><h3>Un hotel donde puedes ser dueño</h3></span>
+        <p>En el oriente de Caldas, frente a un embalse de agua turquesa. Jorge lleva años en proyectos de inversión y hoy te muestra otra forma de construir patrimonio.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="20.9" data-end="75.2">
+        <span class="t"><span class="label">0:21</span><h3>Imagínate llegando un viernes</h3></span>
+        <p>La terraza de tu cabaña, el embalse abajo con la luz de la tarde. Pájaros en lugar de bocinas. Al amanecer, una lancha hasta la cascada La Clara: ciento diez metros de agua en medio de la selva.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="75.2" data-end="103.8">
+        <span class="t"><span class="label">1:15</span><h3>No necesitas cientos de millones</h3></span>
+        <p>Ni una casa de campo de quinientos millones, ni una finca entera, ni un crédito a diez años. Lo que te imaginaste es posible desde una fracción: una parte real del hotel, con derechos de propietario.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="103.8" data-end="140">
+        <span class="t"><span class="label">1:44</span><h3>Dónde queda exactamente</h3></span>
+        <p>Norcasia, oriente de Caldas. El Embalse Amaní: tres mil hectáreas de agua rodeadas de bosque húmedo tropical. El río La Miel y el río Manso. Sin la masificación de Guatapé ni la saturación del Eje Cafetero.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="140" data-end="163.4">
+        <span class="t"><span class="label">2:20</span><h3>La finca entre hermanos</h3></span>
+        <p>Esa finca que algunas familias compran entre varios: todos son dueños, todos van cuando quieren, y cuando nadie va se alquila y se reparte. Selvaní funciona igual, pero es un hotel y los hermanos somos un grupo de copropietarios.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="163.4" data-end="183.2">
+        <span class="t"><span class="label">2:43</span><h3>Trece cabañas, vendidas por fracciones</h3></span>
+        <p>No se vende el hotel completo. Adquieres una fracción, un pedazo real del activo, y te llega tu parte de los ingresos por operación turística mientras un equipo profesional opera el hotel por ti.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="183.2" data-end="205.2">
+        <span class="t"><span class="label">3:03</span><h3>Tú también vas cuando quieras</h3></span>
+        <p>Noches gratuitas al año según tu fracción. Duermes en la cabaña y, cuando estén construidas las áreas comunes, usas el restaurante y la piscina. Como dueño. Descuentos para noches adicionales y para la gente de tu círculo.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="205.2" data-end="221.7">
+        <span class="t"><span class="label">3:25</span><h3>Cómo se cuida tu dinero</h3></span>
+        <p>Tu dinero se reserva en una fiducia de destinación específica. Los recursos solo se usan cuando el módulo llega a su punto de equilibrio.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="221.7" data-end="249.1">
+        <span class="t"><span class="label">3:41</span><h3>Cómo se construye</h3></span>
+        <p>Por módulos. Cada módulo es una cabaña completa: planos, materiales, equipamiento, dotación, negocio y experiencias. Con tus fracciones no eres dueño de un solo módulo: eres dueño del proyecto, en proporción a lo que adquieres.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="249.1" data-end="265.4">
+        <span class="t"><span class="label">4:09</span><h3>Si en seis meses no se llega</h3></span>
+        <p>Si en seis meses no se venden las fracciones necesarias para el punto de equilibrio del módulo, recibes el cien por ciento de tu dinero con los rendimientos generados por la fiducia.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="265.4" data-end="304.6">
+        <span class="t"><span class="label">4:25</span><h3>Para quién es, y para quién no</h3></span>
+        <p>Para quien quiere construir patrimonio sin encerrar su plata en un apartamento que no disfruta. No es para quien busca entrar y salir rápido, utilidades garantizadas o rentabilidades insostenibles.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+
+      <button class="ch" type="button" data-t="304.6" data-end="357">
+        <span class="t"><span class="label">5:04</span><h3>El siguiente paso</h3></span>
+        <p>Cinco preguntas, dos minutos. Con eso agendas una llamada con el equipo de proyectos: el proyecto a fondo, el respaldo jurídico y la disponibilidad de fracciones. Sin compromiso.</p>
+        <span class="seek">Ir aquí</span>
+      </button>
+    </nav>
+
+    <!-- ===== FORM ===== -->
+    <section class="form-wrap" id="formulario">
+      <div class="card" id="card">
+        <span class="label">Cinco preguntas · dos minutos</span>
+        <h2>Si lo que acabas de ver te sonó real, completa esto.</h2>
+        <p class="lead">No es una venta por formulario. Es el primer paso para que te mostremos los planos, los números y las condiciones reales de tu fracción en una llamada, con alguien que puede responderte todo.</p>
+
+        <form id="form" novalidate>
+          <div class="f"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre" type="text" autocomplete="name" required><span class="msg">Escribe tu nombre.</span></div>
+          <div class="f"><label for="wa">WhatsApp, con indicativo</label><input id="wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+57 300 000 0000" required><span class="msg">Necesitamos un número para escribirte.</span></div>
+          <div class="f"><label for="correo">Correo</label><input id="correo" name="correo" type="email" autocomplete="email" required><span class="msg">Revisa el correo.</span></div>
+          <div class="f"><label for="monto">Monto que tienes disponible para invertir</label><input id="monto" name="monto" type="text" inputmode="numeric" placeholder="En pesos colombianos" required><span class="hint">Lo revisamos contigo en la llamada. No es un compromiso.</span><span class="msg">Cuéntanos un monto aproximado.</span></div>
+          <div class="f"><label for="cuando">Cuándo buscas invertir</label>
+            <select id="cuando" name="cuando" required>
+              <option value="">Elige una opción</option>
+              <option>Ahora</option><option>En 1 a 3 meses</option><option>En 3 a 6 meses</option><option>Estoy explorando</option>
+            </select><span class="msg">Elige una opción.</span></div>
+          <button class="pill submit" type="submit">Agendar mi llamada</button>
+          <p class="fine">Sin compromiso. En menos de 24 horas te escribimos.</p><p class="fine datos">Al enviar autorizas el tratamiento de tus datos para contactarte sobre Selvaní. <a id="pol" href="#" hidden>Política de tratamiento de datos</a></p>
+        </form>
+
+        <div class="thanks" aria-live="polite">
+          <span class="label">Listo</span>
+          <h2>Ya tenemos tus datos.</h2>
+          <p>En menos de 24 horas te escribimos por WhatsApp. Si prefieres elegir la hora ahora mismo, agenda directo.</p>
+          <a class="pill" id="cal" href="#" hidden>Agendar directo</a>
+        </div>
+
+        <div class="seal"><span>Fiducia de destinación específica</span><span>Punto de equilibrio por módulo</span><span>Devolución si el módulo no arranca</span></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ===== BELOW ===== -->
+<section class="below">
+  <div class="head rv">
+    <span class="label">Si bajaste sin ver el video completo</span>
+    <h2>Lo que Jorge cuenta en seis minutos, en tres bloques.</h2>
+    <p class="lead">El video carga la emoción. Esto es para que puedas reconstruir la misma historia solo leyendo.</p>
+  </div>
+
+  <div class="cols">
+    <div class="block rv">
+      <span class="label">Lo que incluye</span>
+      <h3>Ser copropietario de Selvaní</h3>
+      <ul class="stack">
+        <li><b>Una fracción real del activo</b>Terreno, cabañas, negocio y mobiliario. Propiedad real, no un derecho de uso.</li>
+        <li><b>Ingresos mensuales por operación turística</b>Sin que tú operes nada: un equipo profesional se encarga de todo. Los rendimientos proyectados son estimativos y pueden variar según el desempeño del proyecto.</li>
+        <li><b>Un activo que se valoriza por etapas</b>Desde la Fracción Pionera, pasando por la construcción, hasta la consolidación del proyecto.</li>
+        <li><b>Noches gratuitas al año, según tu fracción</b>Y descuentos preferenciales para noches adicionales y para tu círculo cercano.</li>
+        <li><b>Transferible</b>Puedes vender, ceder o heredar tu fracción.</li>
+      </ul>
+    </div>
+
+    <div class="block rv">
+      <span class="label">Cómo se construye</span>
+      <h3>Cómo se cuida tu dinero</h3>
+      <ol class="steps">
+        <li><b>Eliges tu fracción</b> y agendas la llamada.</li>
+        <li><b>Tu dinero se reserva</b> en una fiducia de destinación específica.</li>
+        <li><b>Cada módulo es una cabaña completa.</b> Pone cinco fracciones a la venta; con cuatro se alcanza el punto de equilibrio.</li>
+        <li><b>Solo al llegar al punto de equilibrio</b> se usan los recursos y arranca la construcción.</li>
+        <li><b>Si en seis meses no se llega,</b> recibes el 100% de tu dinero con los rendimientos generados por la fiducia.</li>
+      </ol>
+    </div>
+
+    <div class="block rv faq">
+      <span class="label">Antes de que preguntes</span>
+      <h3>Las dudas de siempre</h3>
+      <details><summary>Esto es tiempo compartido</summary><p>No. No compras derecho de uso por un tiempo determinado. Eres copropietario legal de una fracción proporcional del terreno, las cabañas, el negocio y el mobiliario.</p></details>
+      <details><summary>Qué pasa si el módulo no llega al punto de equilibrio</summary><p>Tu dinero está reservado en una fiducia de destinación específica. Si en seis meses no se llega, recibes el 100% con los rendimientos generados por la fiducia.</p></details>
+      <details><summary>Tengo que administrar algo</summary><p>No. Un equipo profesional opera el hotel completo. Tu parte de los ingresos por operación turística te llega sin que operes nada.</p></details>
+      <details><summary>Puedo salir si cambio de planes</summary><p>Sí. Puedes vender, ceder o heredar tu fracción.</p></details>
+      <details><summary>Cuánto necesito tener disponible</summary><p>Depende del tipo de fracción. Eso se revisa en la llamada, con los números exactos y sin compromiso.</p></details>
+      <details><summary>Por qué Norcasia</summary><p>Porque en los destinos conocidos ya no queda nada por construir, y lo que hay está caro. Norcasia tiene el embalse, las cascadas y los ríos, y todavía no tiene la saturación.</p></details>
+    </div>
+  </div>
+
+  <div class="cta-end rv">
+    <h2>Esto también puede ser tuyo. Empieza por la llamada.</h2>
+    <a class="pill" href="#formulario">Agendar mi llamada</a>
+  </div>
+</section>
+
+<footer>
+  <div class="row">
+    <div>
+      <img src="../_media/lockup-crudo.png" alt="Selvaní hotel">
+      <p>Selvaní · Natural Wellness Club · Norcasia, Caldas.<br>Un club cerrado de copropietarios: 70 fracciones para terceros, 62 disponibles hoy.</p>
+    </div>
+    <p><a href="https://wa.me/573175170505">WhatsApp +57 317 517 0505</a><br><a href="https://instagram.com/selvanihotel">@selvanihotel</a><br><a href="https://selvanihotel.com">selvanihotel.com</a></p>
+  </div>
+  <div class="legal">
+    Los rendimientos proyectados son estimativos y pueden variar según el desempeño del proyecto. Los diseños presentados están sujetos a ajustes durante el desarrollo del proyecto.<br>
+    © Desarrollo Ecoturístico Selvaní SAS · Move. Restore. Explore.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var frame=document.getElementById('frame'),v=document.getElementById('vsl'),play=document.getElementById('play');
+  var player=document.querySelector('.player'),chs=[].slice.call(document.querySelectorAll('.ch')),fill=document.getElementById('fill'),cur=document.getElementById('cur'),now=document.getElementById('now');
+  var CAL='';                       /* URL de Calendly: pegar aquí cuando exista */
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+  function seekTo(t){
+    if(typeof t!=='number'){return}
+    if(v.readyState>=1){try{v.currentTime=t}catch(e){}}
+    else{v.addEventListener('loadedmetadata',function h(){v.removeEventListener('loadedmetadata',h);try{v.currentTime=t}catch(e){}})}
+  }
+  function start(t){
+    frame.classList.add('playing'); player.classList.add('is-playing');
+    seekTo(t);
+    var p=v.play(); if(p&&p.catch){p.catch(function(){})}
+    v.setAttribute('controls','');
+    var tz=frame.querySelector('.teaser'); if(tz){tz.pause()}
+  }
+  /* móvil: el reproductor fijo se encoge cuando el formulario entra en pantalla */
+  var formSec=document.getElementById('formulario');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){player.classList.toggle('mini',e.isIntersecting)})},{rootMargin:'-40% 0px 0px 0px'}).observe(formSec);
+  }
+  play.addEventListener('click',function(){start()});
+  chs.forEach(function(b){b.addEventListener('click',function(){start(parseFloat(b.dataset.t))})});
+  function sync(){
+    var t=v.currentTime||0,active=-1;
+    chs.forEach(function(b,i){
+      var a=parseFloat(b.dataset.t),e=parseFloat(b.dataset.end);
+      b.classList.toggle('is-past',t>=e);
+      if(t>=a&&t<e){active=i}
+    });
+    chs.forEach(function(b,i){
+      var on=i===active; b.classList.toggle('is-on',on);
+      if(on){b.setAttribute('aria-current','true')}else{b.removeAttribute('aria-current')}
+    });
+    cur.textContent=fmt(t);
+    if(active>=0){
+      var b=chs[active],a=parseFloat(b.dataset.t),e=parseFloat(b.dataset.end),f=(t-a)/(e-a);
+      fill.style.height=(b.offsetTop+f*b.offsetHeight-14)+'px';
+      now.textContent=b.querySelector('h3').textContent;
+    }
+  }
+  v.addEventListener('timeupdate',sync);
+  v.addEventListener('seeked',sync);
+  v.addEventListener('ended',function(){now.textContent='Abajo está el formulario';fill.style.height='100%'});
+  var cal=document.getElementById('cal'); if(CAL){cal.href=CAL;cal.hidden=false}
+  var POL='';                       /* URL de la política de tratamiento de datos: pegar aquí cuando exista */
+  var pol=document.getElementById('pol'); if(POL){pol.href=POL;pol.hidden=false}
+  /* form */
+  var form=document.getElementById('form'),card=document.getElementById('card');
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault(); var ok=true;
+    [].forEach.call(form.querySelectorAll('.f'),function(f){
+      var el=f.querySelector('input,select'),bad=!el.value.trim()||(el.type==='email'&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
+      f.classList.toggle('err',bad); if(bad){ok=false}
+    });
+    if(!ok){form.querySelector('.err input,.err select').focus();return}
+    card.classList.add('sent'); card.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+  /* reveal */
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  }else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})}
+})();
+</script>
+</body>
+</html>
