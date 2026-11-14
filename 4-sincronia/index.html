@@ -120,6 +120,7 @@ em{font-style:normal;color:var(--amani)}
   box-shadow:0 30px 80px -30px rgba(0,0,0,.7),0 0 0 1px var(--crudo-12);
 }
 .frame video{width:100%;height:100%;object-fit:cover}
+.frame iframe{width:100%;height:100%;border:0;display:block}
 .frame .main{position:absolute;inset:0;opacity:0;transition:opacity .5s var(--ease)}
 .frame.playing .main{opacity:1}
 .frame.playing .teaser,.frame.playing .cover{opacity:0;pointer-events:none}
@@ -331,10 +332,15 @@ footer a:hover{color:var(--crudo)}
       <video class="teaser" muted autoplay loop playsinline preload="auto" poster="../_media/poster-agua.jpg" aria-hidden="true">
         <source src="../_media/teaser-agua.mp4" type="video/mp4">
       </video>
-      <video class="main" id="vsl" playsinline preload="metadata" poster="../_media/vsl-poster-jorge.jpg">
-        <source src="../_media/vsl-v13-web-640.mp4" type="video/mp4">
-        Tu navegador no reproduce este video.
-      </video>
+      <!-- VSL alojado en Panda (perfil "Selvaní · VSL Línea A (cerrado)").
+           src va en data-src a propósito: el iframe se carga al primer play,
+           así no gasta datos de quien no lo ve y el Smart Autoplay de Panda
+           arranca justo cuando la persona lo pidió, no antes. -->
+      <iframe class="main" id="panda-8799ea96-0d90-4146-837d-2318463fa32f"
+              data-src="https://player-vz-d2e616d4-07c.tv.pandavideo.com/embed/?v=8799ea96-0d90-4146-837d-2318463fa32f"
+              title="Jorge, uno de los desarrolladores de Selvaní"
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture"
+              allowfullscreen="true"></iframe>
       <div class="cover">
         <div class="who">Jorge, uno de los desarrolladores de Selvaní<small>Seis minutos. Sin vendedor al otro lado.</small></div>
         <button class="play" id="play" type="button"><span class="ic"><svg viewBox="0 0 12 14" aria-hidden="true"><path d="M0 0l12 7-12 7z"/></svg></span>Ver el video · 5:57</button>
@@ -529,21 +535,57 @@ footer a:hover{color:var(--crudo)}
 
 <script>
 (function(){
-  var frame=document.getElementById('frame'),v=document.getElementById('vsl'),play=document.getElementById('play');
+  var frame=document.getElementById('frame'),play=document.getElementById('play');
   var player=document.querySelector('.player'),chs=[].slice.call(document.querySelectorAll('.ch')),fill=document.getElementById('fill'),cur=document.getElementById('cur'),now=document.getElementById('now');
   var CAL='';                       /* URL de Calendly: pegar aquí cuando exista */
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function fmt(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
-  function seekTo(t){
-    if(typeof t!=='number'){return}
-    if(v.readyState>=1){try{v.currentTime=t}catch(e){}}
-    else{v.addEventListener('loadedmetadata',function h(){v.removeEventListener('loadedmetadata',h);try{v.currentTime=t}catch(e){}})}
+
+  /* ===== EL VSL VIVE EN PANDA =====
+     Antes era un <video> local de 34 MB y los capítulos movían v.currentTime.
+     Ahora es el iframe de Panda con el perfil "Selvaní · VSL Línea A (cerrado)":
+     sin controles y sin barra real, o sea que la persona NO puede adelantar por
+     su cuenta. Los capítulos de esta página sí la llevan donde quiera, por el
+     SDK. Comprobado el 14 nov 2026 contra ese mismo perfil: setCurrentTime(140)
+     movió el video de 28s a 141.9s y llegaron panda_seeking y panda_seeked.
+     Importa porque un perfil restrictivo PUEDE hacer que el reproductor ignore
+     las órdenes (ya pasó con disablePause en las landings de miguellemus.co).
+
+     `v` deja de ser un elemento del DOM y pasa a ser el espejo del tiempo que
+     reporta el propio reproductor: es lo único que sync() necesita leer, así
+     que sync(), fmt() y el hilo de progreso siguen igual que antes. */
+  var LIB='vz-d2e616d4-07c', VID='8799ea96-0d90-4146-837d-2318463fa32f';
+  var IF=document.getElementById('panda-'+VID), SRC=IF.getAttribute('data-src');
+  var ORIGEN=/^https:\/\/[\w.-]+\.pandavideo\.com(\.br)?$/;
+  var P=null, cargado=false, sonando=false, cola=[], v={currentTime:0};
+
+  /* El SDK no acepta órdenes hasta que el video está realmente sonando: lo que
+     llegue antes se guarda y se suelta con el primer tiempo que reporte. */
+  function pedir(fn){ if(sonando&&P){try{fn()}catch(e){}}else{cola.push(fn)} }
+  function cargar(){
+    if(cargado){return} cargado=true;
+    IF.src=SRC;
+    var s=document.createElement('script');
+    s.src='https://player.pandavideo.com.br/api.v2.js'; s.async=true;
+    s.onload=function(){ try{P=new PandaPlayer(IF.id,{library_id:LIB,video_id:VID})}catch(e){} };
+    document.head.appendChild(s);
   }
+  window.addEventListener('message',function(e){
+    if(!ORIGEN.test(e.origin)||e.source!==IF.contentWindow){return}
+    var d=e.data; if(!d||typeof d.message!=='string'){return}
+    var t=Number(d.currentTime);
+    if(!isNaN(t)&&t>0){
+      v.currentTime=t;
+      if(!sonando&&P){ sonando=true; while(cola.length){ try{cola.shift()()}catch(err){} } }
+      sync();
+    }
+    if(d.message==='panda_seeked'){sync()}
+    if(d.message==='panda_ended'){now.textContent='Abajo está el formulario';fill.style.height='100%'}
+  });
+  function seekTo(t){ if(typeof t!=='number'){return} pedir(function(){P.setCurrentTime(t)}) }
   function start(t){
     frame.classList.add('playing'); player.classList.add('is-playing');
-    seekTo(t);
-    var p=v.play(); if(p&&p.catch){p.catch(function(){})}
-    v.setAttribute('controls','');
+    cargar(); seekTo(t); pedir(function(){P.play()});
     var tz=frame.querySelector('.teaser'); if(tz){tz.pause()}
   }
   /* móvil: el reproductor fijo se encoge cuando el formulario entra en pantalla */
@@ -571,9 +613,8 @@ footer a:hover{color:var(--crudo)}
       now.textContent=b.querySelector('h3').textContent;
     }
   }
-  v.addEventListener('timeupdate',sync);
-  v.addEventListener('seeked',sync);
-  v.addEventListener('ended',function(){now.textContent='Abajo está el formulario';fill.style.height='100%'});
+  /* sync(), el fin del video y los saltos los dispara ahora el listener de
+     mensajes de Panda de más arriba; el iframe no emite eventos del DOM. */
   var cal=document.getElementById('cal'); if(CAL){cal.href=CAL;cal.hidden=false}
   var POL='';                       /* URL de la política de tratamiento de datos: pegar aquí cuando exista */
   var pol=document.getElementById('pol'); if(POL){pol.href=POL;pol.hidden=false}

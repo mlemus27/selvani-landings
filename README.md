@@ -1,6 +1,15 @@
 # Landings con VSL · Selvaní · Fracción Pionera
 
-Dos landings estáticas (HTML + CSS + JS en un solo archivo cada una), construidas el 2026-11-13 sobre el VSL v13 de Jorge (`exports/vsl-jorge-linea-a-v13-4x5.mp4`, vertical 4:5, 5:57).
+Dos landings estáticas (HTML + CSS + JS en un solo archivo cada una), construidas el 2026-11-13 sobre el VSL de Jorge (vertical 4:5, 5:57).
+
+**Desde el 2026-11-14 el video NO se sirve desde esta carpeta: vive en Panda Video.** Es el máster v14 (`exports/vsl-jorge-linea-a-v14-4x5.mp4`), idéntico imagen por imagen a v13 pero con el audio normalizado a −14 LUFS.
+
+| Dato | Valor |
+|---|---|
+| `video_id` (API) | `1bedda1e-0e53-4cbe-bc02-fd89c18bb82f` |
+| `v` del embed / `video_id` del SDK | `8799ea96-0d90-4146-837d-2318463fa32f` |
+| `library_id` | `vz-d2e616d4-07c` |
+| Perfil de player | `Selvaní · VSL Línea A (cerrado)` — Smart Autoplay, sin controles, barra de progreso ficticia |
 
 | Carpeta | Concepto | Firma |
 |---|---|---|
@@ -20,11 +29,14 @@ Zalando Sans y Zalando Sans Expanded desde Google Fonts (la fuente oficial del m
 - Logos del design system (`lockup-*`, `isotipo-*`).
 - `teaser-agua.mp4` y `teaser-peninsula.mp4`: loops mudos de 10 s recortados de los drones DJI (4:5) para el hero antes de dar play.
 - `vsl-poster*.jpg`, `poster-*.jpg`: fotogramas fijos.
-- **No están en git** (tamaño): `vsl-v13-web-640.mp4` (640×800, 34 MB, el que usan las dos páginas). Se regenera así desde la carpeta del proyecto:
+- `vsl-v13-web-640.mp4` (640×800, 34 MB, nunca estuvo en git): **ya no se usa.** Era el VSL autoalojado hasta el 2026-11-14; ahora el video lo sirve Panda. Se puede borrar.
 
-```bash
-ffmpeg -i exports/vsl-jorge-linea-a-v13-4x5.mp4 -c:v libx264 -preset slow -crf 27 -vf scale=640:800 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 80k -ac 2 landings/_media/vsl-v13-web-640.mp4
-```
+## Cómo está puesto el VSL (2026-11-14)
+Cada página tiene un `<iframe class="main">` con el `src` guardado en **`data-src`**: el iframe se crea solo al primer play, así quien no ve el video no descarga nada y el Smart Autoplay de Panda arranca cuando la persona lo pidió.
+
+Los saltos (12 capítulos en `4-sincronia`, 4 momentos en `5-modulo`) usan `PandaPlayer.setCurrentTime()` del SDK `https://player.pandavideo.com.br/api.v2.js`, que se carga también al primer play. El tiempo para resaltar el capítulo activo llega por `postMessage` (`panda_timeupdate` / `panda_progress`), no por eventos del DOM: el iframe no los emite.
+
+**Comprobado el 2026-11-14 contra el perfil cerrado**, porque no era obvio que funcionara: `setCurrentTime(140)` movió el video de 28 s a 141,9 s y llegaron `panda_seeking` y `panda_seeked`. Importa verificarlo si alguna vez se cambia el perfil: uno restrictivo **puede hacer que el reproductor ignore las órdenes** (ya pasó con `disablePause` en las landings de miguellemus.co, 28 oct 2026). Si un día los capítulos dejan de saltar, mirar primero el perfil del player en Panda, no el JavaScript.
 
 ## Auditoría de cumplimiento (2026-11-13)
 Pasó por `pauta-highticket:auditor-cumplimiento`. Se aplicaron sus 4 bloqueantes y 11 menores: se quitó "lo peor que puede pasar…" y "el riesgo está resuelto por diseño"; el "100 %" quedó solo en el mecanismo y en una FAQ, siempre con la condición delante; se agregó el aviso de tratamiento de datos bajo el formulario; "Liquidez real" pasó a "Transferible" sin "cuando decidas"; restaurante y piscina condicionados a las áreas comunes; la cifra pasó de "98 · 62" a "62 disponibles" (70 para terceros); disclaimer repetido dentro de "Lo que incluye" y más grande en el pie; sin "seguridad/seguro" como gancho; sin FOMO.
